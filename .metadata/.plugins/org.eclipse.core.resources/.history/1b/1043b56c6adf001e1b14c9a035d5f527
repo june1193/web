@@ -1,0 +1,118 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>예약 정보 변경</title>
+</head>
+<body>
+
+<%
+    String driver = "oracle.jdbc.driver.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:testdb";
+    String user = "scott";
+    String password = "tiger";
+    
+    Connection con = null;
+    PreparedStatement pstSelect = null;
+    PreparedStatement pstUpdate = null;
+    ResultSet rs = null;
+    
+    try {
+        Class.forName(driver);
+        con = DriverManager.getConnection(url, user, password);
+        
+        // 사용자가 입력한 예약번호와 손님번호로 예약 정보 조회
+        String reservation_id = request.getParameter("reservation_id");
+        String customer_id = request.getParameter("customer_id");
+        
+        pstSelect = con.prepareStatement("SELECT * FROM reservation WHERE reservation_id = ? AND customer_id = ?");
+        pstSelect.setString(1, reservation_id);
+        pstSelect.setString(2, customer_id);
+        rs = pstSelect.executeQuery();
+        
+        System.out.println(reservation_id + customer_id);
+        
+        // 조회된 예약 정보를 폼에 출력
+        if (rs.next()) {
+%>
+<h2>예약 정보 변경</h2>
+<form action="updateAction.jsp" method="post">
+    예약번호: <%= rs.getString("reservation_id") %><br>
+    손님번호: <%= rs.getString("customer_id") %><br>
+    호실: <input type="text" name="room_id" value="<%= rs.getString("room_id") %>"><br>
+    입실인원 수: <input type="text" name="num_of_guest" value="<%= rs.getInt("num_of_guest") %>"><br>
+    조식여부: 
+    <select name="breakfast">
+        <option value="1" <% if (rs.getInt("breakfast") == 1) out.print("selected"); %>>조식 포함</option>
+        <option value="0" <% if (rs.getInt("breakfast") == 0) out.print("selected"); %>>조식 미포함</option>
+    </select><br>
+    체크인 날짜: 
+    <select name="check_in_date">
+    <% 
+        for (int i = 10; i <= 30; i++) {
+            String dateCheck;
+            if (i < 10) {
+                dateCheck = "2024-03-0" + i;
+            } else {
+                dateCheck = "2024-03-" + i;
+            }
+            
+            String ifselected = "";
+            if (dateCheck.equals(rs.getString("check_in_date"))) {
+                ifselected = "selected";
+            }
+    %>
+    <option value="<%= dateCheck %>" <%= ifselected %>><%= dateCheck %></option>
+    <% } %>
+</select><br>
+    체크아웃 날짜: 
+    <select name="check_out_date">
+       <option value="2024-03-10">2024-03-10</option>
+        <option value="2024-03-11">2024-03-11</option>
+        <option value="2024-03-12">2024-03-12</option>
+        <option value="2024-03-13">2024-03-13</option>
+        <option value="2024-03-14">2024-03-14</option>
+        <option value="2024-03-15">2024-03-15</option>
+        <option value="2024-03-16">2024-03-16</option>
+        <option value="2024-03-17">2024-03-17</option>
+        <option value="2024-03-18">2024-03-18</option>
+        <option value="2024-03-19">2024-03-19</option>
+        <option value="2024-03-20">2024-03-20</option>
+        <option value="2024-03-21">2024-03-21</option>
+        <option value="2024-03-22">2024-03-22</option>
+        <option value="2024-03-23">2024-03-23</option>
+        <option value="2024-03-24">2024-03-24</option>
+        <option value="2024-03-25">2024-03-25</option>
+        <option value="2024-03-26">2024-03-26</option>
+        <option value="2024-03-27">2024-03-27</option>
+        <option value="2024-03-28">2024-03-28</option>
+        <option value="2024-03-29">2024-03-29</option>
+        <option value="2024-03-30">2024-03-30</option>
+    </select><br>
+    <input type=hidden name=reservation_id value="<%= rs.getString("reservation_id")%>">
+    <input type=hidden name=customer_id value="<%= rs.getString("customer_id")%>">
+    <input type="submit" value="변경">
+</form>
+<br>
+<form action="deleteAction.jsp" method="post">
+<input type=hidden name=reservation_id value="<%= rs.getString("reservation_id")%>">
+<input type="submit" value="예약취소">
+</form>
+<%
+        } else {
+            out.println("해당하는 예약 정보가 없습니다.");
+        }
+    } catch (Exception e) {
+        out.println("오류 발생: " + e.getMessage());
+    } finally {
+        if (rs != null) rs.close();
+        if (pstSelect != null) pstSelect.close();
+        if (pstUpdate != null) pstUpdate.close();
+        if (con != null) con.close();
+    }
+%>
+
+</body>
+</html>

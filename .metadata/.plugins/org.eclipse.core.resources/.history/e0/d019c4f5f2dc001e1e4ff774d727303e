@@ -1,0 +1,20 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>홈</title>
+</head>
+<body>
+
+<h2>환영합니다</h2>
+<p>사용 가능한 기능:</p>
+<ul>
+    <li><a href="조회.jsp">사용자 조회</a></li>
+    <li><a href="등록.jsp">사용자 등록</a></li>
+    <li><a href="변경.jsp">사용자 변경</a></li>
+    <li><a href="삭제.jsp">사용자 삭제</a></li>
+</ul>
+
+</body>
+</html>

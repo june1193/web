@@ -1,0 +1,24 @@
+package day6;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+@WebServlet("/A")
+public class Asurvlet extends HttpServlet{
+
+
+	    protected void doget(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	        // 사용자가 입력한 이름을 받아옴
+	        String name = request.getParameter("name");
+	        
+	        // 받아온 이름을 request에 저장
+	        request.setAttribute("name", name);
+	        
+	        // JSP로 포워딩
+	        request.getRequestDispatcher("WEB-INF/views/hello.jsp").forward(request, response);
+	    }
+	}
+

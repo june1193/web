@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<style>
+.wrap{
+width: 600px;
+padding:20px;
+border:1px solid black;
+}
+
+.inner-wrap{
+   border:1px solid black;
+   padding:10px;
+   }
+</style>
+</head>
+<body>
+   <div class="wrap">
+      <div class="inner-wrap">
+         <a href="/day2/prac6"> 문제 6 :약수구하기</a>
+      </div>
+   </div>
+</body>
+</html>

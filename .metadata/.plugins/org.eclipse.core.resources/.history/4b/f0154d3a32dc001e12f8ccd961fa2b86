@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+    pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+header{
+border:1px solid black;
+padding: 20px;
+
+}
+
+nav{
+	<span><a href="list.jsp">참가자 조회</a></span>
+	<span><a href="#">참가자 조회</a></span>
+	<span><a href="#">참가자 조회</a></span>
+	<span><a href="#">참가자 조회</a></span>
+
+
+}
+</style>
+</head>
+<body>
+
+<header>
+<h2>HY대학교 수강신청</h2>
+</header>
+
+<nav></nav>
+
+<section></section>
+
+<footer></footer>
+</body>
+</html>

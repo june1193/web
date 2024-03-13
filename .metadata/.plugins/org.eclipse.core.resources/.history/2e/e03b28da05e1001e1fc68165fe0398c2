@@ -1,0 +1,9 @@
+package mystudy;
+
+public class AcornService {
+    private AcornDAO dao = new AcornDAO();
+    
+    public Acorn getMember(String id) {
+        return dao.selectOne(id);
+    }
+}

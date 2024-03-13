@@ -1,0 +1,10 @@
+package day7;
+
+//테이블 하나당 DAO 한개씩 만든다
+public class AcornDAO {
+
+	
+	
+	
+	
+}

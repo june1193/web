@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>메인페이지</title>
+</head>
+<body>
+
+<h2>메인페이지</h2>
+
+<!-- 예약하기 버튼 -->
+<form action="등록.jsp" method="post">
+    <input type="submit" value="예약하기">
+</form>
+
+<!-- 예약 변경하기 버튼 -->
+<form action="예약변경페이지.jsp" method="get">
+    <input type="submit" value="예약 변경하기">
+</form>
+
+</body>
+</html>

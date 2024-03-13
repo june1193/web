@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+</head>
+<body>
+
+<h2>post 요청하기, form태그 사용, method 방식을 post로 지정해야함</h2>
+<form action="/day2/qqq" method="post">
+<button>post 요청하기</button>
+</form>
+</body>
+</html>

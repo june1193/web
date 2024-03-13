@@ -1,0 +1,113 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>User 데이터 조작</title>
+</head>
+<body>
+
+<%
+    String driver = "oracle.jdbc.driver.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:testdb";
+    String user = "scott";
+    String password = "tiger";
+    
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
+    try {
+        Class.forName(driver);
+        con = DriverManager.getConnection(url, user, password);
+        String action = request.getParameter("action");
+        
+        if (action == null) {
+            // 아무 동작이 없을 경우 기본 페이지 표시
+%>
+<h2>User 데이터 조작</h2><br>
+<h3>신규 사용자 등록</h3>
+<form method="post" action="등록.jsp?action=add">
+    ID: <input type="text" name="id"><br>
+    비밀번호: <input type="password" name="pw"><br>
+    이름: <input type="text" name="name"><br>
+    <input type="submit" value="등록"><br><br><br><br>
+</form>
+<%
+        } else if (action.equals("add")) {
+            // 데이터 추가
+            String id = request.getParameter("id");
+            String pw = request.getParameter("pw");
+            String name = request.getParameter("name");
+            
+            pst = con.prepareStatement("INSERT INTO acorntbl (id, pw, name) VALUES (?, ?, ?)");
+            pst.setString(1, id);
+            pst.setString(2, pw);
+            pst.setString(3, name);
+            pst.executeUpdate();
+            out.println("<p>데이터가 성공적으로 추가되었습니다.</p>");
+            
+        } else if (action.equals("delete")) {
+            // 데이터 삭제
+            String id = request.getParameter("id");
+            
+            pst = con.prepareStatement("DELETE FROM acorntbl WHERE id = ?");
+            pst.setString(1, id);
+            pst.executeUpdate();
+            out.println("<p>데이터가 성공적으로 삭제되었습니다.</p>");
+        } else if (action.equals("update")) {
+            // 데이터 업데이트
+            String id = request.getParameter("id");
+            String pw = request.getParameter("pw");
+            String name = request.getParameter("name");
+            
+            pst = con.prepareStatement("UPDATE acorntbl SET pw=?, name=? WHERE id=?");
+            pst.setString(1, pw);
+            pst.setString(2, name);
+            pst.setString(3, id);
+            pst.executeUpdate();
+            out.println("<p>데이터가 성공적으로 변경되었습니다.</p>");
+        }
+%>
+
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>동작</th>
+    </tr>
+<%
+        // 데이터 조회
+        pst = con.prepareStatement("SELECT * FROM acorntbl");
+        rs = pst.executeQuery();
+        
+        while (rs.next()) {
+%>
+    <tr>
+        <td><%= rs.getString("id") %></td>
+        <td><%= rs.getString("pw") %></td>
+        <td><%= rs.getString("name") %></td>
+        <td>
+            <a href="User.jsp?action=delete&id=<%= rs.getString("id") %>">삭제</a>
+            <a href="User.jsp?action=update&id=<%= rs.getString("id") %>">변경</a>
+        </td>
+    </tr>
+<%
+        }
+%>
+</table>
+
+<%
+    } catch (Exception e) {
+        out.println("오류 발생: " + e.getMessage());
+    } finally {
+        if (rs != null) rs.close();
+        if (pst != null) pst.close();
+        if (con != null) con.close();
+    }
+%>
+
+</body>
+</html>

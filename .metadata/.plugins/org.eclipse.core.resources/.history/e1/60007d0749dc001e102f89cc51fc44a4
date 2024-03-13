@@ -1,0 +1,27 @@
+package day3;
+
+public class Acorn {
+
+	String id;
+	String pw;
+	String name;
+	
+	
+	public Acorn(String id, String pw, String name) {
+		super();
+		this.id = id;
+		this.pw = pw;
+		this.name = name;
+	}
+
+	
+	public Acorn() {
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+	
+	
+}
+
+

@@ -1,0 +1,22 @@
+package day3;
+
+public class DBTEST {
+	
+	public static void main(String[] args) {
+	
+	
+		
+		//DB연결정보
+		//driver
+		//url
+		//사용자, 비밀번호
+		
+		String driver = "oracle.jdbc.driver.OracleDriver" ;
+		String url="jdbc:oracle:thin:@localhost:1521:testdb";
+		String user="scott";
+		String password="tiger";
+		
+		
+	
+	}
+}

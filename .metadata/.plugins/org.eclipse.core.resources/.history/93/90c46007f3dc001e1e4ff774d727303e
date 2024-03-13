@@ -1,0 +1,56 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>사용자 목록</title>
+</head>
+<body>
+
+<h2>사용자 목록</h2>
+<table border="1">
+    <tr>
+        <th>ID</th>
+        <th>비밀번호</th>
+        <th>이름</th>
+        <th>동작</th>
+    </tr>
+
+<%
+    String driver = "oracle.jdbc.driver.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:testdb";
+    String user = "scott";
+    String password = "tiger";
+    
+    Connection con = null;
+    PreparedStatement pst = null;
+    ResultSet rs = null;
+    
+    try {
+        Class.forName(driver);
+        con = DriverManager.getConnection(url, user, password);
+        
+        pst = con.prepareStatement("SELECT * FROM acorntbl");
+        rs = pst.executeQuery();
+        
+        while (rs.next()) {
+%>
+    <tr>
+        <td><%= rs.getString("id") %></td>
+        <td><%= rs.getString("pw") %></td>
+        <td><%= rs.getString("name") %></td>
+        <td>
+            <a href="UpdateUser.jsp?id=<%= rs.getString("id") %>">변경</a>
+            <a href="DeleteUser.jsp?id=<%= rs.getString("id") %>">삭제</a>
+        </td>
+    </tr>
+<%
+        }
+%>
+</table>
+
+<a href="AddUser.jsp">사용자 등록</a>
+
+</body>
+</html>

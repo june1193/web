@@ -1,0 +1,10 @@
+@charset "EUC-KR";
+table{
+border:1px solid black;
+width:600px;
+margin:0 auto;
+border-collapse: collapse;
+}
+td{
+
+}

@@ -1,0 +1,13 @@
+package day7;
+
+//테이블 하나당 DAO 한개씩 만든다
+public class AcornDAO {
+
+	String driver="oracle.jdbc.driver.OracleDriver";
+	String url="jdbc:oracle:thin:@localhost:1521:testdb";
+	String user="scott";
+	String password="tiger";
+	
+	
+	
+}

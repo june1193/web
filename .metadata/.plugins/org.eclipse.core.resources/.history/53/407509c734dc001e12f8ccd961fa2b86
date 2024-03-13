@@ -1,0 +1,81 @@
+<%@ page language="java" contentType="text/html; charset=EUC-KR"
+	pageEncoding="EUC-KR"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+header {
+	border: 1px solid black;
+	padding: 20px;
+}
+
+nav {
+	
+	border:1px solid black;
+	padding: 10px;
+}
+
+a{
+	text-decoration:none;
+	list-style: none;
+}
+
+nav span{
+padding-right: 5px;
+}
+
+section{
+height:500px;
+
+}
+footer{
+border:1px solid black;
+display: flex;
+
+}
+
+footer > div{
+border:1px solid black;
+}
+footer > div:nth-child(1){
+bacground-color: red;
+}
+footer > div:nth-child(2){
+width:20%;
+}
+footer > div:nth-child(3){
+width:60%
+
+}
+</style>
+</head>
+<body>
+
+	<header>
+		<h2>HY대학교 수강신청 프로그램</h2>
+	</header>
+
+	<nav>
+		<span><a href="list.jsp">참가자 조회</a></span> 
+		<span><a href="#">참가자 등록</a></span> 
+		<span><a href="#">참가자 조회</a></span> 
+		<span><a href="#">참가자 조회</a></span>
+	</nav>
+
+	<section>
+	<h2>수강신청관리 하는 프로그램</h2>
+	<ul>
+	<li>등록</li>
+	<li>조회</li>
+	</ul>
+	</section>
+
+	<footer >
+	<div>ACORN</div>
+	<div>낙지 미나리전 간식, 술안주, 밥반찬 두루두루 활용하기 좋아요</div>
+	<div>아무말</div>
+	</footer>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page import="java.sql.*" %>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>예약 정보 변경</title>
+</head>
+<body>
+
+<%
+    String driver = "oracle.jdbc.driver.OracleDriver";
+    String url = "jdbc:oracle:thin:@localhost:1521:testdb";
+    String user = "scott";
+    String password = "tiger";
+    
+    Connection con = null;
+    PreparedStatement pstSelect = null;
+    PreparedStatement pstUpdate = null;
+    ResultSet rs = null;
+    
+    try {
+        Class.forName(driver);
+        con = DriverManager.getConnection(url, user, password);
+        
+        // 사용자가 입력한 예약번호와 손님번호로 예약 정보 조회
+        String reservation_id = request.getParameter("reservation_id");
+        String customer_id = request.getParameter("customer_id");
+        
+        pstSelect = con.prepareStatement("SELECT * FROM reservation WHERE reservation_id = ? AND customer_id = ?");
+        pstSelect.setString(1, reservation_id);
+        pstSelect.setString(2, customer_id);
+        rs = pstSelect.executeQuery();
+        
+        // 조회된 예약 정보를 폼에 출력
+        if (rs.next()) {
+%>
+<h2>예약 정보 변경</h2>
+<form action="updateReservation.jsp" method="post">
+    예약번호: <%= rs.getString("reservation_id") %><br>
+    손님번호: <%= rs.getString("customer_id") %><br>
+    호실: <input type="text" name="room_id" value="<%= rs.getString("room_id") %>"><br>
+    입실인원 수: <input type="text" name="num_of_guest" value="<%= rs.getInt("num_of_guest") %>"><br>
+    조식여부: <input type="text" name="breakfast" value="<%= rs.getInt("breakfast") %>"><br>
+    체크인 날짜: <input type="text" name="check_in_date" value="<%= rs.getString("check_in_date") %>"><br>
+    체크아웃 날짜: <input type="text" name="check_out_date" value="<%= rs.getString("check_out_date") %>"><br>
+    <input type="submit" value="변경완료">
+</form>
+<%
+        } else {
+            out.println("해당하는 예약 정보가 없습니다.");
+        }
+    } catch (Exception e) {
+        out.println("오류 발생: " + e.getMessage());
+    } finally {
+        if (rs != null) rs.close();
+        if (pstSelect != null) pstSelect.close();
+        if (pstUpdate != null) pstUpdate.close();
+        if (con != null) con.close();
+    }
+%>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="EUC-KR">
+<title>Insert title here</title>
+<style>
+table{
+width:400px;
+border:1px soild black;
+margin: 0 auto;
+
+}
+</style>
+</head>
+<body>
+
+</body>
+</html>
